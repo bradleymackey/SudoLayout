@@ -46,16 +46,20 @@ public struct EdgeConstraints {
 /// # Edges
 /// a position on a view, used to restrict particular masks
 public struct Edges: OptionSet {
-    let rawValue: Int
+    public let rawValue: Int
+    
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
 
-    static let leading    = Edges(rawValue: 1 << 0)
-    static let trailing   = Edges(rawValue: 1 << 1)
-    static let top        = Edges(rawValue: 1 << 2)
-    static let bottom     = Edges(rawValue: 1 << 3)
+    public static let leading    = Edges(rawValue: 1 << 0)
+    public static let trailing   = Edges(rawValue: 1 << 1)
+    public static let top        = Edges(rawValue: 1 << 2)
+    public static let bottom     = Edges(rawValue: 1 << 3)
 
-    static let sides: Edges = [.leading, .trailing]
-    static let tops: Edges  = [.top, .bottom]
-    static let all: Edges   = [.top, .bottom, .leading, .trailing]
+    public static let sides: Edges = [.leading, .trailing]
+    public static let tops: Edges  = [.top, .bottom]
+    public static let all: Edges   = [.top, .bottom, .leading, .trailing]
 }
 
 // MARK: - Autolayout Exts.
