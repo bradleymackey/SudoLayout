@@ -18,6 +18,7 @@ import UIKit
 /// the binding constraints are returned in this
 /// object such that they can be later manipulated
 /// (for example, with animations)
+@frozen
 public struct EdgeConstraints {
     
     let top: NSLayoutConstraint
@@ -45,6 +46,7 @@ public struct EdgeConstraints {
 
 /// # Edges
 /// a position on a view, used to restrict particular masks
+@frozen
 public struct Edges: OptionSet {
     public let rawValue: Int
     
@@ -68,6 +70,7 @@ public extension UIView {
     
     /// enforces that the view hugs and does not compress
     /// in relation to the given axis
+    @inlinable
     func concrete(for axis: NSLayoutConstraint.Axis) {
         setContentHuggingPriority(.init(1000), for: axis)
         setContentCompressionResistancePriority(.init(1000), for: axis)
@@ -75,6 +78,7 @@ public extension UIView {
     
     /// enforces that the view streches to fill space whenever possible
     /// in relation to the given axis
+    @inlinable
     func flexible(for axis: NSLayoutConstraint.Axis) {
         setContentHuggingPriority(.init(1), for: axis)
         setContentCompressionResistancePriority(.init(1), for: axis)
@@ -82,6 +86,7 @@ public extension UIView {
     
     /// a stretchy spacer view, allows other views
     /// to wrap their content inside of a stack view easily
+    @inlinable
     static var spacer: UIView {
         let view = UIView()
         view.backgroundColor = .clear
@@ -92,6 +97,7 @@ public extension UIView {
     }
     
     /// a fixed spacer of a specific height
+    @inlinable
     static func spacer(height: CGFloat) -> UIView {
         let view = UIView()
         view.height(equalTo: height)
@@ -99,6 +105,7 @@ public extension UIView {
     }
     
     /// a fixed spacer of a specific width
+    @inlinable
     static func spacer(width: CGFloat) -> UIView {
         let view = UIView()
         view.width(equalTo: width)
@@ -106,6 +113,7 @@ public extension UIView {
     }
     
     /// constrain this view to have a height equal to the supplied view, with the given multiplier
+    @inlinable
     @discardableResult
     func height(
         equalTo view: UIView, multiplier: CGFloat = 1
@@ -115,7 +123,8 @@ public extension UIView {
         return constraint
     }
     
-    /// wrapper for autolayout constraint
+    /// sets the height of this view to be constrained to a constant
+    @inlinable
     @discardableResult
     func height(
         equalTo constant: CGFloat
@@ -125,6 +134,8 @@ public extension UIView {
         return constraint
     }
     
+    /// sets the height of this view to be constrained to be less than this constant
+    @inlinable
     @discardableResult
     func height(
         lessThan constant: CGFloat
@@ -135,6 +146,7 @@ public extension UIView {
     }
     
     /// constrain this view to have an equal width to the the supplied view, with the given multiplier
+    @inlinable
     @discardableResult
     func width(
         equalTo view: UIView, multiplier: CGFloat = 1
@@ -145,6 +157,7 @@ public extension UIView {
     }
     
     /// constrain this view to have an equal width to the the supplied view, with the given multiplier
+    @inlinable
     @discardableResult
     func constrainAsSquare() -> NSLayoutConstraint {
         let constraint = widthAnchor.constraint(equalTo: heightAnchor, multiplier: 1)
@@ -153,6 +166,7 @@ public extension UIView {
     }
     
     /// wrapper for autolayout constraint
+    @inlinable
     @discardableResult
     func width(equalTo constant: CGFloat) -> NSLayoutConstraint {
         let constraint = widthAnchor.constraint(equalToConstant: constant)
@@ -161,6 +175,7 @@ public extension UIView {
     }
     
     /// make this view have an equal width and height to the supplied view
+    @inlinable
     @discardableResult
     func size(equalTo view: UIView) -> (height: NSLayoutConstraint, width: NSLayoutConstraint) {
         let h = height(equalTo: view)
@@ -172,6 +187,7 @@ public extension UIView {
     /// of its new containing view.
     ///
     /// - Parameter view: view to add as subview and constrain
+    @inlinable
     @discardableResult
     func addEdgeConstrainedSubview(view: UIView) -> EdgeConstraints {
         addSubview(view)
@@ -179,6 +195,7 @@ public extension UIView {
     }
     
     /// constrains the given subview to be in the center of this view
+    @inlinable
     func centerConstrain(subview: UIView, xOffset: CGFloat = 0, yOffset: CGFloat = 0) {
         let x = subview.centerXAnchor.constraint(equalTo: centerXAnchor, constant: xOffset)
         let y = subview.centerYAnchor.constraint(equalTo: centerYAnchor, constant: yOffset)
