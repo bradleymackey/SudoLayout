@@ -6,7 +6,6 @@ import PackageDescription
 let package = Package(
     name: "SudoLayout",
     platforms: [
-        .macOS(.v10_12),
         .iOS(.v11),
         .tvOS(.v12),
         .watchOS(.v3)
